@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Under Pressure – SupeRR Selector S2, Round 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6F7FB;--card:#fff;--ink:#1B2437;--mut:#6B7385;--navy:#0B1F4B;--pink:#EA1A8E;--line:#E1E4EC;--soft:#FBE3F1;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0A1226;--card:#121C38;--ink:#E8EBF4;--mut:#98A2BC;--navy:#C9D4F5;--line:#243050;--soft:#3A1230}}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 "IBM Plex Sans",system-ui,sans-serif}
+.w{max-width:980px;margin:0 auto;padding:28px 18px 60px}
+h1,h2,h3{font-family:"Barlow Condensed",sans-serif;color:var(--navy);margin:0;line-height:1.05}
+h1{font-size:clamp(38px,7vw,64px);max-width:15ch}h2{font-size:30px;margin:44px 0 6px}
+.lead{max-width:62ch;color:var(--mut);margin:12px 0 0}
+.heat{display:grid;grid-template-columns:70px repeat(20,1fr);gap:2px;margin-top:22px;font-size:10px}
+.heat div{height:26px;border-radius:3px;display:flex;align-items:center;justify-content:center;color:var(--mut)}
+.heat .c{cursor:pointer;color:#fff;font-weight:600}.heat .c:hover{outline:2px solid var(--navy)}
+.heat .l{justify-content:flex-start;font-size:11px}.heat .o{height:auto;font-size:10px}
+#hn{min-height:44px;margin-top:8px;color:var(--mut);font-size:13px}
+.tabs{display:flex;gap:8px;margin:14px 0}
+.tabs button{font:600 14px "IBM Plex Sans";padding:9px 18px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.tabs button[aria-pressed=true]{background:var(--pink);color:#fff;border-color:var(--pink)}
+button:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+.row{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:8px}
+.row>button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:34px 1.3fr 2fr 70px;gap:12px;align-items:center;width:100%;padding:12px 14px;cursor:pointer}
+.row>button:focus-visible{outline:3px solid var(--navy);border-radius:10px}
+.rk{font:700 26px "Barlow Condensed";color:var(--pink)}
+.nm b{display:block;font-weight:600}.nm span{color:var(--mut);font-size:12px}
+.bar{position:relative;height:12px;background:var(--line);border-radius:6px}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--pink);border-radius:6px}
+.bar u{position:absolute;top:5px;height:2px;background:var(--navy)}
+.sc{text-align:right;font:700 22px "Barlow Condensed";color:var(--navy)}
+.det{display:none;padding:2px 14px 14px 60px;font-size:13px;color:var(--ink)}
+.row.open .det{display:block}
+.k{display:flex;flex-wrap:wrap;gap:6px 22px;margin:6px 0 10px}.k span{color:var(--mut)}.k b{color:var(--ink)}
+.ph{display:flex;height:10px;border-radius:5px;overflow:hidden;max-width:360px}
+.ph i{display:block}.pl{font-size:11px;color:var(--mut);margin-top:3px}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:99px;background:var(--soft);color:var(--pink);margin-left:6px}
+table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:14px}
+.p{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.p h3{font-size:22px;margin-bottom:4px}.gap{color:var(--pink);font-weight:600}
+.rr{display:grid;grid-template-columns:130px 1fr 60px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.rr .bar{height:14px}.rr .bar i{background:var(--navy)}.rr .bad i{background:var(--pink)}
+.n{font-size:12px;color:var(--mut);margin-top:26px}
+@media(max-width:620px){.row>button{grid-template-columns:28px 1fr 56px}.row .bar{display:none}.det{padding-left:14px}.heat{grid-template-columns:50px repeat(20,1fr)}}
+</style></head><body><div class="w">
+<h1>Who delivers when the game is on the line?</h1>
+<p class="lead">Pressure here means one thing: how much the next ball can change who wins. Darker cells are higher-leverage overs across 842 IPL and T20I matches (2022–2026). Tap an over for details.</p>
+<div class="heat" id="heat" role="img" aria-label="Pressure index by over and innings"></div><div id="hn"></div>
+
+<h2>The ranking</h2>
+<p class="lead">Pressure Reliability Rating (RPRR): impact, consistency and resilience on high-leverage deliveries, shrunk for small samples and scored at the 25th percentile of 120 bootstrap resamples. Bar = RPRR, line = base rating.</p>
+<div class="tabs"><button id="tb" aria-pressed="true">Top 10 batters</button><button id="tw" aria-pressed="false">Top 10 bowlers</button></div>
+<div id="list"></div>
+
+<h2>What Rajasthan Royals are missing</h2>
+<p class="lead">Rank among the 10 franchises on pressure deliveries, IPL 2025–26. Short bars are the gaps.</p>
+<div id="rr" style="max-width:560px;margin-top:10px"></div>
+<div class="g">
+ <div class="p"><h3>Fix the death overs with the bat</h3><span class="gap">Batting at the death: #<span id="rbd"></span> of 10</span><p>Rinku Singh and Tim David both play more than half their pressure balls in the last five overs. Tim David’s pressure strike rate is 193.</p></div>
+ <div class="p"><h3>Add pressure-proof seam bowling</h3><span class="gap">Powerplay bowling: #<span id="rbp"></span> · Death: #<span id="rbx"></span></span><p>Shoriful Islam concedes 6.45 under pressure against 8.54 normally. Mujeeb Ur Rahman is the spin option in the powerplay.</p></div>
+ <div class="p"><h3>Keep the core</h3><span class="gap">Powerplay batting: #<span id="rbo"></span></span><p>Yashasvi Jaiswal is already at Royals, and 79% of his pressure innings are positive. Retain, don’t replace.</p></div>
+</div>
+
+<h2>How the pressure score works</h2>
+<table><tr><th>Tier</th><th>Share of balls</th><th>Win-prob swing / ball</th><th>Wickets / 100</th></tr><tbody id="tt"></tbody></table>
+<p class="n">Method: win-probability model (out-of-fold) → leverage = expected |Δ win probability| on the next ball → Pressure Index. Batter value = win probability added; bowler value = its negative. Performance is compared with an average player in the same situation. Eligibility: 150 pressure balls and 15 pressure innings (bowlers 120 / 15), active in 2026. The data holds no auction prices; check availability before acting.</p>
+</div>
+<script>
+const D={"bat": [{"rank": 1, "player": "Mohammad Nawaz", "RPRR": 64.3, "PRR": 73.74, "impact_pct100": 18.97, "hit_rate": 0.8, "resilience": 0.07, "p_top10": 0.45, "ipl26_team": "", "in_RR_squad_2026": false, "p_balls": 174, "ph_Powerplay": 1.15, "ph_Middle": 43.68, "ph_Death": 55.17, "pct_ipl_pressure": 0.0, "p_sr": 164.94, "o_sr": 129.41, "p_avg": 23.92, "hand": "LHB", "bat_order": 7.0}, {"rank": 2, "player": "Rinku Singh", "RPRR": 61.86, "PRR": 71.39, "impact_pct100": 32.82, "hit_rate": 0.67, "resilience": -0.06, "p_top10": 0.6, "ipl26_team": "Kolkata Knight Riders", "in_RR_squad_2026": false, "p_balls": 276, "ph_Powerplay": 5.8, "ph_Middle": 43.48, "ph_Death": 50.72, "pct_ipl_pressure": 90.58, "p_sr": 155.8, "o_sr": 151.59, "p_avg": 47.78, "hand": "LHB", "bat_order": 6.0}, {"rank": 3, "player": "Suryakumar Yadav", "RPRR": 58.6, "PRR": 68.87, "impact_pct100": 23.18, "hit_rate": 0.74, "resilience": -0.04, "p_top10": 0.38, "ipl26_team": "Mumbai Indians", "in_RR_squad_2026": false, "p_balls": 646, "ph_Powerplay": 20.43, "ph_Middle": 65.17, "ph_Death": 14.4, "pct_ipl_pressure": 63.31, "p_sr": 173.99, "o_sr": 164.12, "p_avg": 51.09, "hand": "RHB", "bat_order": 4.0}, {"rank": 4, "player": "Pathum Nissanka", "RPRR": 57.77, "PRR": 68.31, "impact_pct100": 14.07, "hit_rate": 0.77, "resilience": 0.04, "p_top10": 0.31, "ipl26_team": "Delhi Capitals", "in_RR_squad_2026": false, "p_balls": 542, "ph_Powerplay": 60.52, "ph_Middle": 31.73, "ph_Death": 7.75, "pct_ipl_pressure": 18.27, "p_sr": 157.56, "o_sr": 124.43, "p_avg": 40.67, "hand": "RHB", "bat_order": 1.0}, {"rank": 5, "player": "Shreyas Iyer", "RPRR": 56.21, "PRR": 67.28, "impact_pct100": 28.5, "hit_rate": 0.68, "resilience": -0.09, "p_top10": 0.44, "ipl26_team": "Punjab Kings", "in_RR_squad_2026": false, "p_balls": 447, "ph_Powerplay": 26.4, "ph_Middle": 59.51, "ph_Death": 14.09, "pct_ipl_pressure": 78.3, "p_sr": 161.3, "o_sr": 150.86, "p_avg": 48.07, "hand": "RHB", "bat_order": 4.0}, {"rank": 6, "player": "Prabhsimran Singh", "RPRR": 56.19, "PRR": 67.04, "impact_pct100": 20.16, "hit_rate": 0.67, "resilience": 0.01, "p_top10": 0.34, "ipl26_team": "Punjab Kings", "in_RR_squad_2026": false, "p_balls": 389, "ph_Powerplay": 65.81, "ph_Middle": 32.39, "ph_Death": 1.8, "pct_ipl_pressure": 97.69, "p_sr": 166.84, "o_sr": 155.24, "p_avg": 43.27, "hand": "RHB", "bat_order": 2.0}, {"rank": 7, "player": "Yashasvi Jaiswal", "RPRR": 56.09, "PRR": 62.49, "impact_pct100": 14.15, "hit_rate": 0.79, "resilience": -0.07, "p_top10": 0.17, "ipl26_team": "Rajasthan Royals", "in_RR_squad_2026": true, "p_balls": 448, "ph_Powerplay": 63.17, "ph_Middle": 35.49, "ph_Death": 1.34, "pct_ipl_pressure": 91.07, "p_sr": 166.96, "o_sr": 153.02, "p_avg": 39.37, "hand": "LHB", "bat_order": 1.0}, {"rank": 8, "player": "Tim David", "RPRR": 55.76, "PRR": 68.99, "impact_pct100": 31.52, "hit_rate": 0.69, "resilience": -0.1, "p_top10": 0.45, "ipl26_team": "Royal Challengers Bengaluru", "in_RR_squad_2026": false, "p_balls": 374, "ph_Powerplay": 5.35, "ph_Middle": 40.64, "ph_Death": 54.01, "pct_ipl_pressure": 50.8, "p_sr": 192.78, "o_sr": 171.01, "p_avg": 37.95, "hand": "RHB", "bat_order": 6.0}, {"rank": 9, "player": "Kusal Mendis", "RPRR": 55.58, "PRR": 64.15, "impact_pct100": 19.85, "hit_rate": 0.69, "resilience": -0.04, "p_top10": 0.32, "ipl26_team": "", "in_RR_squad_2026": false, "p_balls": 365, "ph_Powerplay": 57.53, "ph_Middle": 35.89, "ph_Death": 6.58, "pct_ipl_pressure": 1.37, "p_sr": 139.73, "o_sr": 131.95, "p_avg": 39.23, "hand": "RHB", "bat_order": 2.0}, {"rank": 10, "player": "Virat Kohli", "RPRR": 54.43, "PRR": 60.88, "impact_pct100": 18.54, "hit_rate": 0.68, "resilience": -0.08, "p_top10": 0.13, "ipl26_team": "Royal Challengers Bengaluru", "in_RR_squad_2026": false, "p_balls": 583, "ph_Powerplay": 53.34, "ph_Middle": 37.56, "ph_Death": 9.09, "pct_ipl_pressure": 83.88, "p_sr": 148.54, "o_sr": 144.21, "p_avg": 57.73, "hand": "RHB", "bat_order": 2.0}], "bowl": [{"rank": 1, "player": "Mujeeb Ur Rahman", "RPRR": 70.81, "PRR": 82.82, "impact_pct100": 21.09, "hit_rate": 0.85, "resilience": 0.14, "p_top10": 0.61, "ipl26_team": "", "in_RR_squad_2026": false, "p_balls": 267, "ph_Powerplay": 52.43, "ph_Middle": 37.08, "ph_Death": 10.49, "pct_ipl_pressure": 0.0, "p_econ": 6.27, "o_econ": 7.03, "p_wkts": 18, "style": "Right-arm offbreak", "pace_spin": "Spin"}, {"rank": 2, "player": "Sunil Narine", "RPRR": 67.23, "PRR": 79.93, "impact_pct100": 28.16, "hit_rate": 0.67, "resilience": 0.13, "p_top10": 0.8, "ipl26_team": "Kolkata Knight Riders", "in_RR_squad_2026": false, "p_balls": 404, "ph_Powerplay": 14.85, "ph_Middle": 68.81, "ph_Death": 16.34, "pct_ipl_pressure": 100.0, "p_econ": 6.95, "o_econ": 6.66, "p_wkts": 22, "style": "Right-arm offbreak", "pace_spin": "Spin"}, {"rank": 3, "player": "Richard Ngarava", "RPRR": 60.93, "PRR": 68.02, "impact_pct100": 5.43, "hit_rate": 0.56, "resilience": 0.16, "p_top10": 0.24, "ipl26_team": "", "in_RR_squad_2026": false, "p_balls": 196, "ph_Powerplay": 56.12, "ph_Middle": 5.61, "ph_Death": 38.27, "pct_ipl_pressure": 0.0, "p_econ": 6.8, "o_econ": 7.96, "p_wkts": 13, "style": "Left-arm fast-medium", "pace_spin": "Pace"}, {"rank": 4, "player": "Krunal Pandya", "RPRR": 60.81, "PRR": 72.08, "impact_pct100": 19.12, "hit_rate": 0.57, "resilience": 0.12, "p_top10": 0.52, "ipl26_team": "Royal Challengers Bengaluru", "in_RR_squad_2026": false, "p_balls": 391, "ph_Powerplay": 12.53, "ph_Middle": 83.89, "ph_Death": 3.58, "pct_ipl_pressure": 100.0, "p_econ": 7.04, "o_econ": 7.89, "p_wkts": 22, "style": "Slow left-arm orthodox", "pace_spin": "Spin"}, {"rank": 5, "player": "Sikandar Raza", "RPRR": 60.26, "PRR": 69.93, "impact_pct100": 10.87, "hit_rate": 0.66, "resilience": 0.11, "p_top10": 0.32, "ipl26_team": "", "in_RR_squad_2026": false, "p_balls": 192, "ph_Powerplay": 4.69, "ph_Middle": 85.42, "ph_Death": 9.9, "pct_ipl_pressure": 9.9, "p_econ": 6.47, "o_econ": 6.96, "p_wkts": 9, "style": "Right-arm offbreak", "pace_spin": "Spin"}, {"rank": 6, "player": "Shoriful Islam", "RPRR": 60.16, "PRR": 72.06, "impact_pct100": 16.59, "hit_rate": 0.52, "resilience": 0.16, "p_top10": 0.5, "ipl26_team": "", "in_RR_squad_2026": false, "p_balls": 212, "ph_Powerplay": 49.06, "ph_Middle": 25.0, "ph_Death": 25.94, "pct_ipl_pressure": 0.0, "p_econ": 6.45, "o_econ": 8.54, "p_wkts": 16, "style": "Left-arm medium-fast", "pace_spin": "Pace"}, {"rank": 7, "player": "Mitchell Santner", "RPRR": 58.01, "PRR": 70.21, "impact_pct100": 15.68, "hit_rate": 0.51, "resilience": 0.15, "p_top10": 0.48, "ipl26_team": "Mumbai Indians", "in_RR_squad_2026": false, "p_balls": 399, "ph_Powerplay": 23.56, "ph_Middle": 61.9, "ph_Death": 14.54, "pct_ipl_pressure": 39.35, "p_econ": 6.86, "o_econ": 7.35, "p_wkts": 26, "style": "Slow left-arm orthodox", "pace_spin": "Spin"}, {"rank": 8, "player": "Kuldeep Yadav", "RPRR": 57.99, "PRR": 66.85, "impact_pct100": 6.59, "hit_rate": 0.58, "resilience": 0.12, "p_top10": 0.31, "ipl26_team": "Delhi Capitals", "in_RR_squad_2026": false, "p_balls": 447, "ph_Powerplay": 1.34, "ph_Middle": 79.42, "ph_Death": 19.24, "pct_ipl_pressure": 74.72, "p_econ": 7.17, "o_econ": 8.0, "p_wkts": 25, "style": "Left-arm Chinaman", "pace_spin": "Spin"}, {"rank": 9, "player": "Axar Patel", "RPRR": 57.93, "PRR": 69.75, "impact_pct100": 21.91, "hit_rate": 0.48, "resilience": 0.12, "p_top10": 0.29, "ipl26_team": "Delhi Capitals", "in_RR_squad_2026": false, "p_balls": 535, "ph_Powerplay": 25.98, "ph_Middle": 65.42, "ph_Death": 8.6, "pct_ipl_pressure": 50.47, "p_econ": 7.75, "o_econ": 7.76, "p_wkts": 32, "style": "Slow left-arm orthodox", "pace_spin": "Spin"}, {"rank": 10, "player": "Adam Zampa", "RPRR": 57.53, "PRR": 65.52, "impact_pct100": 2.54, "hit_rate": 0.68, "resilience": 0.08, "p_top10": 0.38, "ipl26_team": "", "in_RR_squad_2026": false, "p_balls": 254, "ph_Powerplay": 12.2, "ph_Middle": 63.78, "ph_Death": 24.02, "pct_ipl_pressure": 16.54, "p_econ": 8.03, "o_econ": 8.27, "p_wkts": 15, "style": "Right-arm Leg-Break", "pace_spin": "Spin"}], "bat_more": [[11, "Cameron Green", 53.6], [12, "Josh Inglis", 53.6], [13, "Phil Salt", 53.3], [14, "Krunal Pandya", 52.6], [15, "Ryan Burl", 52.3], [16, "Fakhar Zaman", 51.6], [17, "Shubman Gill", 51.4], [18, "Quinton de Kock", 50.8], [19, "Daryl Mitchell", 50.1], [20, "Shashank Singh", 50.0], [21, "Shivam Dube", 49.7], [22, "Towhid Hridoy", 49.2], [23, "Rovman Powell", 48.6], [24, "Tristan Stubbs", 48.5], [25, "Jos Buttler", 48.2]], "bowl_more": [[11, "Jasprit Bumrah", 56.8], [12, "Akeal Hosein", 56.2], [13, "Lockie Ferguson", 55.4], [14, "Mitchell Starc", 55.4], [15, "Taskin Ahmed", 54.4], [16, "Patrick Cummins", 54.2], [17, "Nathan Ellis", 54.1], [18, "Harshit Rana", 54.1], [19, "Rashid Khan", 53.9], [20, "Wanindu Hasaranga", 53.8], [21, "Yuzvendra Chahal", 53.6], [22, "Mark Adair", 53.0], [23, "Mohammad Nawaz", 52.7], [24, "Varun Chakravarthy", 51.3], [25, "Eshan Malinga", 50.4]], "tiers": [{"pressure_tier": "Extreme", "balls": 19903, "share": 10.0, "mean_pi": 3.38, "wp_swing": 3.93, "runs_per_ball": 1.49, "wicket_rate": 6.57}, {"pressure_tier": "High", "balls": 29855, "share": 15.0, "mean_pi": 1.49, "wp_swing": 1.72, "runs_per_ball": 1.44, "wicket_rate": 5.4}, {"pressure_tier": "Ordinary", "balls": 149271, "share": 75.0, "mean_pi": 0.59, "wp_swing": 0.69, "runs_per_ball": 1.4, "wicket_rate": 5.25}], "heat": [[0.48, 0.54, 0.74, 0.71, 0.72, 0.69, 0.6, 0.59, 0.58, 0.65, 0.63, 0.62, 0.73, 0.71, 0.69, 0.74, 0.73, 0.83, 0.94, 1.13], [1.09, 1.14, 1.22, 1.19, 1.24, 1.21, 0.99, 0.98, 0.97, 1.08, 1.11, 1.1, 1.25, 1.24, 1.34, 1.47, 1.62, 1.88, 2.41, 4.07]], "rr": {"rank": {"bat_wpa100": 5, "bowl_wpa100": 4, "bat_Powerplay": 1, "bowl_Powerplay": 5, "bat_Middle": 5, "bowl_Middle": 2, "bat_Death": 10, "bowl_Death": 6}, "n": 10}, "sizes": {"matches": 842, "balls": 199029, "ipl": 362, "pressure_balls": 49758}};
+const $=id=>document.getElementById(id),f=(v,d=1)=>(+v).toFixed(d);
+// heat map
+const hm=$("heat"),mx=3.2;hm.innerHTML='<div class="o"></div>'+[...Array(20)].map((_,i)=>`<div class="o">${i+1}</div>`).join("");
+D.heat.forEach((r,i)=>{hm.insertAdjacentHTML("beforeend",`<div class="l">${i?"Chase":"First inns"}</div>`);
+ r.forEach((v,j)=>{const a=Math.min(1,Math.max(.08,(v-.3)/(mx-.3)));
+  hm.insertAdjacentHTML("beforeend",`<div class="c" tabindex="0" style="background:rgba(234,26,142,${a})" data-i="${i}" data-j="${j}">${a>.5?f(v,1):""}</div>`)})});
+const say=e=>{const c=e.target.closest(".c");if(!c)return;const v=D.heat[c.dataset.i][c.dataset.j];
+ $("hn").textContent=`${c.dataset.i?"Chase":"First innings"}, over ${+c.dataset.j+1}: pressure index ${f(v,2)} – `+(v>=1.18?"a high-pressure over (top quarter of deliveries).":"below the high-pressure threshold.")};
+hm.addEventListener("click",say);hm.addEventListener("focusin",say);
+// list
+let role="bat";
+function render(){const L=D[role],mx=Math.max(...L.map(p=>p.PRR));
+ $("list").innerHTML=L.map((p,i)=>{
+  const bat=role=="bat",rr=p.in_RR_squad_2026?'<span class="tag">Royals 2026</span>':"";
+  const stat=bat?`<span>SR under pressure <b>${f(p.p_sr,0)}</b> vs <b>${f(p.o_sr,0)}</b> normally</span><span>Average <b>${f(p.p_avg,0)}</b></span>`:
+   `<span>Economy under pressure <b>${f(p.p_econ,2)}</b> vs <b>${f(p.o_econ,2)}</b> normally</span><span>Wickets <b>${p.p_wkts}</b></span>`;
+  const pp=p.ph_Powerplay,mm=p.ph_Middle,dd=p.ph_Death;
+  return `<div class="row" id="r${i}"><button aria-expanded="false" onclick="this.parentNode.classList.toggle('open');this.setAttribute('aria-expanded',this.parentNode.classList.contains('open'))">
+  <span class="rk">${p.rank}</span><span class="nm"><b>${p.player}${rr}</b><span>${p.ipl26_team||"No IPL 2026 squad in data"}</span></span>
+  <span class="bar"><i style="width:${p.RPRR/mx*100}%"></i><u style="left:${p.RPRR/mx*100}%;width:${(p.PRR-p.RPRR)/mx*100}%"></u></span><span class="sc">${f(p.RPRR)}</span></button>
+  <div class="det"><div class="k">${stat}<span>Impact <b>${f(p.impact_pct100)}</b> pts / 100 balls</span><span>Positive in <b>${f(p.hit_rate*100,0)}%</b> of pressure ${bat?"innings":"spells"}</span><span>Top-10 in <b>${f(p.p_top10*100,0)}%</b> of resamples</span><span>Pressure balls <b>${p.p_balls}</b></span></div>
+  <div class="ph"><i style="width:${pp}%;background:var(--navy)"></i><i style="width:${mm}%;background:#7F8DB5"></i><i style="width:${dd}%;background:var(--pink)"></i></div>
+  <div class="pl">Powerplay ${f(pp,0)}% · Middle ${f(mm,0)}% · Death ${f(dd,0)}% of pressure balls · ${bat?p.hand+", bats #"+f(p.bat_order,0):p.style}</div></div></div>`}).join("")}
+$("tb").onclick=()=>{role="bat";$("tb").setAttribute("aria-pressed",true);$("tw").setAttribute("aria-pressed",false);render()};
+$("tw").onclick=()=>{role="bowl";$("tw").setAttribute("aria-pressed",true);$("tb").setAttribute("aria-pressed",false);render()};render();
+// RR
+const R=D.rr.rank,items=[["Batting · powerplay","bat_Powerplay"],["Batting · middle","bat_Middle"],["Batting · death","bat_Death"],["Bowling · powerplay","bowl_Powerplay"],["Bowling · middle","bowl_Middle"],["Bowling · death","bowl_Death"]];
+$("rr").innerHTML=items.map(([l,k])=>`<div class="rr"><span>${l}</span><span class="bar ${R[k]>=8?"bad":""}"><i style="width:${(11-R[k])*10}%"></i></span><b>#${R[k]}</b></div>`).join("");
+$("rbd").textContent=R.bat_Death;$("rbp").textContent=R.bowl_Powerplay;$("rbx").textContent=R.bowl_Death;$("rbo").textContent=R.bat_Powerplay;
+$("tt").innerHTML=D.tiers.map(t=>`<tr><td>${t.pressure_tier}</td><td>${f(t.share,0)}%</td><td>${f(t.wp_swing,2)} pts</td><td>${f(t.wicket_rate,1)}</td></tr>`).join("");
+</script></body></html>
